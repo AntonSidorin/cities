@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.HashMap;
+
 @SpringBootTest
 class JwtServiceTest {
 
@@ -26,7 +28,7 @@ class JwtServiceTest {
         user.setUsername(username);
 
         //when
-        String token = BEARER + jwtService.generateToken(user);
+        String token = BEARER + jwtService.generateToken(new HashMap<>(), user);
 
         //then
         assertTrue(jwtService.isTokenValid(token, user));
@@ -43,7 +45,7 @@ class JwtServiceTest {
         user.setUsername(username);
 
         //when
-        String token = BEARER + jwtService.generateToken(user);
+        String token = BEARER + jwtService.generateToken(new HashMap<>(), user);
 
         //then
         assertFalse(jwtService.isTokenValid(token, new User()));
@@ -60,7 +62,7 @@ class JwtServiceTest {
         user.setUsername(username);
 
         //when
-        String token = jwtService.generateToken(user);
+        String token = jwtService.generateToken(new HashMap<>(), user);
 
         //then
         assertFalse(jwtService.isTokenValid(token, user));
