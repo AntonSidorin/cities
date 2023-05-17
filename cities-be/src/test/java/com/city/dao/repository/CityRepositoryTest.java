@@ -51,16 +51,16 @@ class CityRepositoryTest {
     }
 
     @Test
-    void findWalletById() {
+    void findCityById() {
 
         //given
         City city = repository.save(createCity());
 
         //when
-        Optional<City> walletByUsername = repository.findById(city.getId());
+        Optional<City> cityById = repository.findById(city.getId());
 
         //then
-        assertEquals(city, walletByUsername.orElseThrow());
+        assertEquals(city, cityById.orElseThrow());
     }
 
     private City createCity() {

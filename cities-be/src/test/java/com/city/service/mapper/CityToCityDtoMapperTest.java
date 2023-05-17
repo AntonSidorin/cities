@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 class CityToCityDtoMapperTest {
 
     @Test
-    void walletMappingTest() {
+    void cityMappingTest() {
 
         //given
         City city = new City();

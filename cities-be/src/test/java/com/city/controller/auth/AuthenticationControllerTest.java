@@ -22,7 +22,7 @@ class AuthenticationControllerTest {
 
     @Test
     void unauthorisedAccessNoAuthorisationHeader() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/wallet")
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/cities")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isForbidden());
     }
@@ -30,7 +30,7 @@ class AuthenticationControllerTest {
     @Test
     void unauthorisedAccessNotBearerToken() throws Exception {
         String token = "not_bearer_token";
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/wallet")
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/cities")
                         .header(HttpHeaders.AUTHORIZATION, token)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isForbidden());
@@ -39,7 +39,7 @@ class AuthenticationControllerTest {
     @Test
     void unauthorisedAccessInvalidBearerToken() throws Exception {
         String token = JwtService.BEARER + "token";
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/wallet")
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/cities")
                         .header(HttpHeaders.AUTHORIZATION, token)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isForbidden());

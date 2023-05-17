@@ -192,7 +192,7 @@
                             <version>0.8.9</version>
                             <configuration>
                                 <excludes>
-                                    <exclude>com/wallet/WalletApplication.class</exclude>
+                                    <exclude>com/city/CitiesApplication.class</exclude>
                                 </excludes>
                             </configuration>
                             <executions>
@@ -299,7 +299,7 @@
                         </execution>
                     </executions>
                     <configuration>
-                        <mainClass>com.city.WalletApplication</mainClass>
+                        <mainClass>com.city.CitiesApplication</mainClass>
                     </configuration>
                 </plugin>
                 <plugin>
