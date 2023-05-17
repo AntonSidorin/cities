@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +32,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @Tag(name = "City API")
 @RequestMapping("/api/v1/cities")
+@SecurityRequirement(name = "bearer")
 public class CityController {
 
     private final CityService cityService;
@@ -52,7 +54,9 @@ public class CityController {
     }
 
     @Operation(summary = "Get a paginated list of cities")
-    @Parameter(in = ParameterIn.QUERY, name = "page", schema = @Schema(type = "integer"))
+    @Parameter(in = ParameterIn.QUERY, name = "name", description = "City name", schema = @Schema(type = "string"))
+    @Parameter(in = ParameterIn.QUERY, name = "page", description = "Page number", schema = @Schema(type = "integer", defaultValue = "0"))
+    @Parameter(in = ParameterIn.QUERY, name = "size", description = "Page size", schema = @Schema(type = "integer", defaultValue = "30"))
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successful response."),
             @ApiResponse(responseCode = "400", description = "Bad request.", content = {@Content(array = @ArraySchema(schema = @Schema(implementation = ErrorResult.class)))}),
@@ -63,7 +67,7 @@ public class CityController {
     public CitiesDto getCities(
             @RequestParam(value = "name", defaultValue = "") String name,
             @RequestParam(value = "page", defaultValue = "0") int pageIndex,
-            @RequestParam(value = "size", defaultValue = "0") int size
+            @RequestParam(value = "size", defaultValue = "30") int size
     ) {
         return cityService.getCities(name, pageIndex > 0 ? pageIndex : 0, size > 0 ? size : rowPerPage);
     }
