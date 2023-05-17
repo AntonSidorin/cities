@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  cities-backend:
+    build:
+      context: ./cities-be
+      dockerfile: Dockerfile
+    image: "cities-be"
+    container_name: cities-be
+    restart: unless-stopped
+    networks:
+      - cities
+    ports:
+      - "8080:8080"
+  cities-frontend:
+    build:
+      context: ./cities-fe
+      dockerfile: Dockerfile
+    image: "cities-fe"
+    container_name: cities-fe
+    restart: unless-stopped
+    stdin_open: true
+    depends_on:
+      - cities-backend
+    networks:
+      - cities
+    ports:
+      - "3000:80"
+    links:
+      - cities-backend
+networks:
+  cities: { }
